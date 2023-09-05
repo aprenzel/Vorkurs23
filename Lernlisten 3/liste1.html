@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="UTF-8"/>
+   <title>Vögel in Europa</title>
+   <link rel="stylesheet" href="styles.css">
+   <style>
+   </style>
+
+   <script>
+	var list_title = "Vogelarten in Europa";
+
+	var list_card1_img = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Robin_%289509442456%29.jpg/512px-Robin_%289509442456%29.jpg";
+	var list_card1_text = "Das Rotkehlchen (Erithacus rubecula) ist eine Vogelart aus der Familie der Fliegenschnäpper (Muscicapidae). Es besiedelt Nordafrika, Europa und Kleinasien sowie die Mittelmeerinseln. Seine Nahrung besteht vor allem aus Insekten, kleinen Spinnen, Würmern und Schnecken. Sein Gesang beginnt etwa eine Stunde vor Sonnenaufgang und ist bis in die Dämmerung fast das ganze Jahr über zu hören. Die Art gilt derzeit als ungefährdet."
+
+	var template1 = "<div class='card'><img style='width:100%' src='"+list_card1_img+"'/><p>"+list_card1_text+"</p></div>";
+
+	function render(){
+
+		document.querySelector("#listview_cards").innerHTML += template1;
+	}
+   </script>
+ </head>
+
+<body onload="render()">
+
+	<header>
+		<div id="back"><a href="home.html">&larr;</a></div>
+		<h1 id="listview_title"></h1>
+	</header>
+
+	<section id="listview_cards">
+		
+		
+	</section>
+
+
+	<footer>Vorkurs Informatik 2023, Hochschule Zittau/Görlitz</footer>
+
+</body>
+</html>

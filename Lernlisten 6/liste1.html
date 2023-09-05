@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="UTF-8"/>
+   <title>Vögel in Europa</title>
+   <link rel="stylesheet" href="styles.css">
+   <style>
+   </style>
+
+   <script src="data.js"></script>
+   <script>
+	
+	var template1 = "<div class='card'><img style='width:100%' src='"+lists[0].cards[0].img+"'/><p>"+lists[0].cards[0].text+"</p></div>";
+
+	function render(){
+
+		document.querySelector("#listview_cards").innerHTML += template1;
+	}
+   </script>
+ </head>
+
+<body onload="render()">
+
+	<header>
+		<div id="back"><a href="home.html">&larr;</a></div>
+		<h1 id="listview_title"></h1>
+	</header>
+
+	<section id="listview_cards">
+		
+		
+	</section>
+
+
+	<footer>Vorkurs Informatik 2023, Hochschule Zittau/Görlitz</footer>
+
+</body>
+</html>
