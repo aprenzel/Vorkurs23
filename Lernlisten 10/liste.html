@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="UTF-8"/>
+   <title>Vögel in Europa</title>
+   <link rel="stylesheet" href="styles.css">
+   <style>
+   </style>
+
+   <script type="module">
+	import {lists} from "./data.js";
+
+	var my_lists = lists;
+
+	if(window.localStorage.getItem("list_data") != null){
+		my_lists = JSON.parse(window.localStorage.getItem("list_data"));
+	}
+
+	window.onload = render;
+
+	var urlParams = new URLSearchParams(window.location.search);
+	var id = urlParams.get("id");
+	var list = my_lists.find(l => l.id==id);
+
+	function render(){
+
+		document.querySelector("#listview_cards").innerHTML = "";
+
+		list.cards.forEach(card => {
+			
+			var template = "<div class='card'><img style='width:100%' src='"+card.img+"'/><p>"+card.text+"</p></div>";
+
+			document.querySelector("#listview_cards").innerHTML += template;
+		});
+	}
+
+	function addCard(url, txt){
+
+		var card = {
+			img: url,
+			text: txt,
+		}
+
+		list.cards.push(card);
+	}
+
+	function updateList(){
+
+		var url = document.querySelector('#url_input').value;
+		var txt = document.querySelector('#txt_input').value;
+
+		addCard(url, txt);
+		updateData();
+		render();
+	}
+
+	function editList(){
+		window.location.href="edit.html?id="+id;
+	}
+
+	function updateData(){
+		window.localStorage.setItem("list_data", JSON.stringify(my_lists));
+	}
+
+	document.querySelector("#addCardButton").addEventListener("click", updateList);
+
+	document.querySelector("#editListButton").addEventListener("click", editList);
+   </script>
+ </head>
+
+<body>
+
+	<header>
+		<div id="back"><a href="home.html">&larr;</a></div>
+		<h1 id="listview_title"></h1>
+	</header>
+
+	<section id="listview_cards">
+			
+	</section>
+
+	<section id="edit">
+		<input id="url_input"><br>
+		<textarea id="txt_input"></textarea><br>
+		<button id="addCardButton">Eintrag hinzufügen</button><br>
+		<button id="editListButton">Liste bearbeiten</button>
+	</section>	
+	<footer>Vorkurs Informatik 2023, Hochschule Zittau/Görlitz</footer>
+
+</body>
+</html>

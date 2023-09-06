@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="UTF-8"/>
+   <title>Vögel in Europa</title>
+   <link rel="stylesheet" href="styles.css">
+   <style>
+   </style>
+
+   <script type="module">
+	import {lists} from "./data.js";
+
+	window.onload = render;
+
+	var urlParams = new URLSearchParams(window.location.search);
+	var id = urlParams.get("id");
+	var list = lists.find(l => l.id==id);
+
+	function render(){
+
+        document.querySelector("#title_input").value = list.title;
+        document.querySelector("#title_input").addEventListener("change", function(){
+                list.title = document.querySelector("#title_input").value;
+                console.log("update");
+                render();
+            });
+
+		document.querySelector("#listview_cards").innerHTML = "";
+
+		list.cards.forEach(card => {
+			
+			var template = "<div class='card'><input id='url_input_"+
+            card.id+
+            "' value='"+
+            card.img+
+            "'><br><textarea id='txt_input_"+card.id+"'>"+card.text+"</textarea><br><button id='deleteCardButton_"+
+            card.id+
+            "'>Löschen</button><br></div>";
+
+			document.querySelector("#listview_cards").innerHTML += template;
+
+            document.querySelector("#url_input_"+card.id).addEventListener("change", function(){
+                card.img = document.querySelector("#url_input_"+card.id).value;
+                console.log("update");
+                render();
+            });
+
+            document.querySelector("#txt_input_"+card.id).addEventListener("change", function(){
+                card.text = document.querySelector("#txt_input_"+card.id).value;
+                console.log("update");
+                render();
+            });
+
+            document.querySelector("#deleteCardButton_"+card.id).addEventListener("click", function(){
+                var index = list.cards.indexOf(card);
+                list.cards.splice(index, 1);
+                console.log("update");
+                render();
+            });
+		});
+	}
+
+	function addCard(url, txt){
+
+		var card = {
+			img: url,
+			text: txt,
+		}
+
+		list.cards.push(card);
+	}
+
+	function updateList(){
+
+		var url = document.querySelector('#url_input').value;
+		var txt = document.querySelector('#txt_input').value;
+
+		addCard(url, txt);
+		render();
+	}
+
+	document.querySelector("#addCardButton").addEventListener("click", updateList);
+   </script>
+ </head>
+
+<body>
+
+	<header>
+		<div id="back"><a href="liste.html">&larr;</a></div>
+		<h1 id="listview_title">Liste bearbeiten</h1>
+	</header>
+
+    <section>
+        <input id="title_input">
+    </section>
+
+	<section id="listview_cards">
+			
+	</section>
+
+	<section id="edit">
+		<input id="url_input"><br>
+		<textarea id="txt_input"></textarea><br>
+		<button id="addCardButton">Eintrag hinzufügen</button>
+	</section>	
+	<footer>Vorkurs Informatik 2023, Hochschule Zittau/Görlitz</footer>
+
+</body>
+</html>
